@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senai Jaú - Plataforma Acadêmica</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- HEADER -->
+    <header class="bg-black text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center p-4">
+
+            <div class="flex items-center gap-4">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                     class="w-12 h-12 rounded-full border-2 border-red-600">
+
+                <div>
+                    <h1 class="text-xl font-bold text-red-500">Senai Jaú</h1>
+                    <p class="text-sm">Plataforma Acadêmica</p>
+                </div>
+            </div>
+
+            <nav class="flex gap-4 items-center">
+
+                <a href="/" class="hover:text-red-500 transition">
+                    Início
+                </a>
+
+                <a href="/cursos" class="hover:text-red-500 transition">
+                    Cursos
+                </a>
+
+                <a href="/login" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition">
+                    Login
+                </a>
+
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="bg-gradient-to-r from-black to-red-700 text-white py-24">
+        <div class="container mx-auto text-center px-4">
+
+            <h2 class="text-5xl font-bold mb-6">
+                Formação Profissional de Qualidade
+            </h2>
+
+            <p class="text-xl mb-8">
+                Capacitando alunos para o mercado de trabalho com tecnologia e inovação.
+            </p>
+
+            <a href="/register"
+               class="bg-white text-red-700 px-8 py-4 rounded-lg font-bold hover:bg-gray-200 transition">
+                Cadastre-se
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+
+            <h3 class="text-4xl font-bold text-center mb-10 text-red-600">
+                Sobre a Instituição
+            </h3>
+
+            <p class="text-center max-w-4xl mx-auto text-lg leading-8">
+                O Senai Jaú oferece cursos profissionalizantes voltados para tecnologia,
+                indústria, desenvolvimento de sistemas, automação e qualificação técnica.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- CURSOS -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4">
+
+            <h3 class="text-4xl font-bold text-center mb-12 text-red-600">
+                Principais Cursos
+            </h3>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4 text-red-600">
+                        Desenvolvimento de Sistemas
+                    </h4>
+
+                    <p>
+                        Formação completa em programação, banco de dados e aplicações web.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4 text-red-600">
+                        Automação Industrial
+                    </h4>
+
+                    <p>
+                        Controle industrial, sensores, CLPs e sistemas automatizados.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4 text-red-600">
+                        Mecatrônica
+                    </h4>
+
+                    <p>
+                        Integração entre mecânica, eletrônica e programação industrial.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-8 text-center">
+        <p>
+            © 2026 Senai Jaú - Todos os direitos reservados.
+        </p>
+    </footer>
+
+</body>
+</html>

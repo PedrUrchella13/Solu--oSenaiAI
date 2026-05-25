@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+{% include 'partials/header.html' %}
+
+<div class="container mx-auto py-10 px-4">
+
+    <h1 class="text-4xl font-bold text-red-600 mb-8">
+        Cursos Disponíveis
+    </h1>
+
+    <form method="GET" class="mb-8">
+
+        <input type="text"
+               name="pesquisa"
+               placeholder="Pesquisar curso..."
+               class="w-full border p-3 rounded shadow">
+
+    </form>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        {% for curso in cursos %}
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+
+            <h2 class="text-2xl font-bold text-red-600 mb-3">
+                {{ curso['nome'] }}
+            </h2>
+
+            <p class="mb-3">
+                {{ curso['descricao'] }}
+            </p>
+
+            <p>
+                <strong>Carga Horária:</strong>
+                {{ curso['carga_horaria'] }}h
+            </p>
+
+            <p>
+                <strong>Duração:</strong>
+                {{ curso['duracao'] }}
+            </p>
+
+            <p>
+                <strong>Vagas:</strong>
+                {{ curso['vagas'] }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

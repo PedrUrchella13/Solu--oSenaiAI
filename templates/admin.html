@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administração</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+{% include 'partials/header.html' %}
+
+<div class="container mx-auto py-10 px-4">
+
+    <div class="flex justify-between items-center mb-8">
+
+        <h1 class="text-4xl font-bold text-red-600">
+            Painel Administrativo
+        </h1>
+
+        <a href="/criar-curso"
+           class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700">
+
+            Novo Curso
+
+        </a>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+        <table class="w-full">
+
+            <thead class="bg-black text-white">
+
+                <tr>
+                    <th class="p-4">Curso</th>
+                    <th class="p-4">Carga Horária</th>
+                    <th class="p-4">Vagas</th>
+                    <th class="p-4">Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for curso in cursos %}
+
+                <tr class="border-b">
+
+                    <td class="p-4">
+                        {{ curso['nome'] }}
+                    </td>
+
+                    <td class="p-4">
+                        {{ curso['carga_horaria'] }}h
+                    </td>
+
+                    <td class="p-4">
+                        {{ curso['vagas'] }}
+                    </td>
+
+                    <td class="p-4 flex gap-3">
+
+                        <a href="/editar-curso/{{ curso['id'] }}"
+                           class="bg-yellow-500 text-white px-4 py-2 rounded">
+
+                            Editar
+
+                        </a>
+
+                        <a href="/deletar-curso/{{ curso['id'] }}"
+                           class="bg-red-600 text-white px-4 py-2 rounded">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
