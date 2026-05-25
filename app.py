@@ -19,10 +19,13 @@ from functools import wraps
 
 import sqlite3
 import os
+import uuid
+from PIL import Image, UnidentifiedImageError
 
 # =========================================================
 # CONFIGURAÇÕES INICIAIS
 # =========================================================
+
 
 app = Flask(
     __name__,
@@ -30,11 +33,20 @@ app = Flask(
     static_folder='static'
 )
 
-app.secret_key = "SENAI_SECRET_KEY"
+# Use environment variable for secret key in production
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-me')
 
-UPLOAD_FOLDER = 'static/uploads'
+# Upload folder (absolute path inside app)
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'uploads')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Cookie/session security defaults (override via env in prod)
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    SESSION_COOKIE_SECURE=(os.environ.get('SESSION_COOKIE_SECURE', 'False').lower() == 'true')
+)
 
 # LIMITE DE UPLOAD
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
@@ -229,13 +241,31 @@ def perfil():
 
         if file and allowed_file(file.filename):
 
-            filename = secure_filename(file.filename)
+            # Validate image content
+            try:
+                file.stream.seek(0)
+                img = Image.open(file.stream)
+                img.verify()
+                file.stream.seek(0)
+            except (UnidentifiedImageError, Exception):
+                flash("Arquivo de imagem inválido.")
+                conn.close()
+                return redirect('/perfil')
 
-            path = os.path.join(
-                app.config['UPLOAD_FOLDER'],
-                filename
-            )
+            # Create a unique filename to avoid collisions
+            original_name = secure_filename(file.filename)
+            _, ext = os.path.splitext(original_name)
+            ext = ext.lower() if ext else ''
+            unique_name = f"{uuid.uuid4().hex}{ext}"
 
+            # Ensure we don't overwrite the default image
+            if unique_name == DEFAULT_IMAGE:
+                unique_name = f"u_{unique_name}"
+
+            path = os.path.join(app.config['UPLOAD_FOLDER'], unique_name)
+
+            # Save file
+            file.stream.seek(0)
             file.save(path)
 
             conn.execute(
@@ -245,14 +275,14 @@ def perfil():
                 WHERE id = ?
                 ''',
                 (
-                    filename,
+                    unique_name,
                     session['usuario_id']
                 )
             )
 
             conn.commit()
 
-            session['usuario_foto'] = filename
+            session['usuario_foto'] = unique_name
 
             flash("Foto atualizada com sucesso.")
 
